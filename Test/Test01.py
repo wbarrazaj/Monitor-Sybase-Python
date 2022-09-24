@@ -10,3 +10,24 @@ curs.execute("select 'Hello, world!'")
 print( "SQL Anywhere says: %s" % curs.fetchone() )
 curs.close()
 conn.close()
+
+
+
+def print_(mensaje):
+    print(mensaje)
+    print("Hola")
+
+
+print_("Chao")
+
+
+class Jorge() :
+    XX = 1
+    YY = 2 
+    def Gauchon():
+        pass
+
+jomito = Jorge()
+
+print(jomito.XX)
+
