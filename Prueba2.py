@@ -7,7 +7,7 @@ os.environ["SQLANY_API_DLL"]='/opt/sqlanywhere17/lib64/libdbcapi_r.so'
 
 print(os.environ["SQLANY_API_DLL"])
 
-conn = sqlanydb.connect(uid='sa', pwd='Emilita01', dbn='master' , commlinks='tcpip{host=193.168.1.175;port=5000}' )
+conn = sqlanydb.connect(uid='sa', pwd='Emilita01', dbn='master' , host='193.168.1.175}' )
 
 print(conn)
 
