@@ -19,6 +19,7 @@ Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 print(Conn.ServidorDB)
 a=pyodbc.drivers()
 
+
 print(a)
 print(Conn)
 
