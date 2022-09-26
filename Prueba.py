@@ -4,7 +4,7 @@ import pyodbc
 
 from clases.Clase_Conexion import Conexion
 
-os.environ["SQLANY_API_DLL"]='./opt/sqlanywhere17/lib64/libdbcapi_r.so'
+os.environ["SQLANY_API_DLL"]='/opt/sqlanywhere17/lib64/libdbcapi_r.so'
 
 servidor='193.168.1.175:5000'
 usuario='sa' 
