@@ -1,10 +1,9 @@
 import pyodbc 
 
-
 class Conexion():
     """
     Server class de Conexion.
-    print_Server    : Imprime informcion de Servidor.
+    __conectar    : metodo de conexion.
     """
     def __init__(self, servidor, usuario, clave, db, puerto, drver ):
         self.ServidorDB = servidor 
@@ -32,7 +31,15 @@ class Conexion():
         conn.commit()
         conn.close()
 
-
+    def chk_default(c):
+        res = True
+        try:
+            c.query('select 1')
+            c.use_result()
+        except:
+            res = False
+            
+        return res
 
 
 """"
