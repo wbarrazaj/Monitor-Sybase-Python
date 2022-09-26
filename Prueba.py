@@ -18,10 +18,12 @@ Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 
 print(Conn.ServidorDB)
 
-#conn = pyodbc.connect(driver=drver, server=servidor , database=db ,port = puerto, uid=usuario , pwd=clave)
-
 a=pyodbc.drivers()
 
-#a=Conn.conectar()
-
 print(a)
+
+conn = pyodbc.connect(driver=drver, server=servidor , database=db ,port = puerto, uid=usuario , pwd=clave)
+
+b=Conn.conectar()
+
+print(b)
