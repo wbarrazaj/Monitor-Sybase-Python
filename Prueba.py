@@ -22,6 +22,8 @@ print(a)
 
 conn = pyodbc.connect(driver=drver, server=servidor , database=db ,uid=usuario , pwd=clave)
 
+print("Aqui")
+
 b=conn.conectar()
 
 print(b)
