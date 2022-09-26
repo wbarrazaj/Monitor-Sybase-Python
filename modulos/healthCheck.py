@@ -1,13 +1,29 @@
-#from  ..class.Database import connect
-from clases import Database
-#import class.Database
+#from clases.Database import Database
 from os import walk
 
-#fh_servers=open("servidores.txt","r");
-#for server in fh_servers:
-   #fh_sentencias = open("senten 
-#
+outdir = "../salidas"
 sentenciasdir = "../datos/sentencias/healthcheck"
-
 filenames = next(walk(sentenciasdir), (None, None, []))[2]
-print(filenames)
+fh_servers=open("../datos/servidores.txt","r");
+
+#Limpia archivos de salida
+for file in filenames:
+  filespec = file.split(".")
+  outfile=outdir+"/"+filespec[0]+".log"
+  fh = open(outfile,"w")
+  fh.close()
+  print(outfile)
+
+for server in fh_servers:
+  print("============> "+server);
+  for file in filenames:
+    filespec = file.split(".")
+    outfile=outdir+"/"+filespec[0]+".log"
+    fh_sentencias = open(sentenciasdir+"/"+file, "r")
+    sql=fh_sentencias.read() + "OUTPUT TO "+outfile
+    print(sql)
+    fh_sentencias.close()
+
+fh_servers.close()
+
+

@@ -1,0 +1,2 @@
+select
+'sentencia numero dos'
