@@ -1,7 +1,7 @@
 #import sqlanydb
 import os
 
-from class.Clase_Conexion import Conexion
+from clases.Clase_Conexion import Conexion
 
 
 Conn = Conexion()
