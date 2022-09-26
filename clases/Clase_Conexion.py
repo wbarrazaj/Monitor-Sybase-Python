@@ -13,7 +13,7 @@ class Conexion():
         self.Port = puerto 
         self.Driver = drver
     
-    def __conectar(self):
+    def conectar(self):
         conn = pyodbc.connect(
                                 driver=self.Driver, 
                                 server=self.ServidorDB , 

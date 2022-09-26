@@ -17,6 +17,6 @@ Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 
 print(Conn.ServidorDB)
 
-a=Conn.__conectar()
+a=Conn.conectar()
 
 print(a)
