@@ -1,8 +1,17 @@
-import sqlanydb
+#import sqlanydb
 import os
 
-#print(os.environ["SQLANY_API_DLL"])
+from class.Clase_Conexion import Conexion
 
+
+Conn = Conexion()
+
+
+
+
+
+""""
+#print(os.environ["SQLANY_API_DLL"])
 
 conn = sqlanydb.connect(uid='sa', pwd='Emilita01', eng='PROD' , commlinks='tcpip{host=193.168.1.175;port=5000}' )
 curs = conn.cursor()
@@ -24,3 +33,4 @@ password = 'mypassword'
 cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+ password)
 cursor = cnxn.cursor()
 
+"""
