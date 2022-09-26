@@ -6,7 +6,7 @@ from clases.Clase_Conexion import Conexion
 
 os.environ["SQLANY_API_DLL"]='./opt/sqlanywhere17/lib64/libdbcapi_r.so'
 
-servidor='193.168.1.175'
+servidor='193.168.1.175:5000'
 usuario='sa' 
 clave='Emilita01'
 db='master' 
@@ -17,12 +17,10 @@ Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 
 
 print(Conn.ServidorDB)
-
 a=pyodbc.drivers()
-
 print(a)
 
-conn = pyodbc.connect(driver=drver, server=servidor , database=db ,port = puerto, uid=usuario , pwd=clave)
+conn = pyodbc.connect(driver=drver, server=servidor , database=db ,uid=usuario , pwd=clave)
 
 b=Conn.conectar()
 
