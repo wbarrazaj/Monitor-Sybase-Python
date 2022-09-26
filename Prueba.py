@@ -1,5 +1,6 @@
 #import sqlanydb
 import os
+import pyodbc
 
 from clases.Clase_Conexion import Conexion
 
@@ -17,6 +18,12 @@ Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 
 print(Conn.ServidorDB)
 
-a=Conn.conectar()
+#conn = pyodbc.connect(driver=drver, server=servidor , database=db ,port = puerto, uid=usuario , pwd=clave)
+
+a=pyodbc.drivers()
 
 print(a)
+
+#a=Conn.conectar()
+
+#print(a)
