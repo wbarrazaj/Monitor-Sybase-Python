@@ -11,7 +11,7 @@ usuario='sa'
 clave='Emilita01'
 db='master' 
 puerto=5000
-drver='Hola'
+drver='SYBASE'
 
 Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
 
