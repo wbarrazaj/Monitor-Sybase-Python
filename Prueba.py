@@ -13,7 +13,7 @@ db='master'
 puerto=5000
 drver='SYBASE'
 
-print(" Hola ")
+print("Hola ")
 
 Conn = BaseDD(servidor,usuario,clave,db,puerto,drver)
 
