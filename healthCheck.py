@@ -1,5 +1,7 @@
+import pyodbc
+import pymysql
 #from clases.Database import Database
-from ..clases.cls_Bdd import BaseDD
+from clases.cls_Bdd import BaseDD
 from os import walk
 from pathlib import Path
 import sys
@@ -26,9 +28,10 @@ if not path.is_file():
 fh_conexiones=open(archivoConexiones)
 
 
-outdir = "../salidas"
-sentenciasdir = "../datos/sentencias/healthcheck"
+outdir = "./salidas"
+sentenciasdir = "datos/sentencias/healthcheck"
 
+"""
 #Limpia archivos de salida
 for file in archivosSql:
   filespec = file.split(".")
@@ -36,21 +39,30 @@ for file in archivosSql:
   fh = open(outfile,"w")
   fh.close()
   print(outfile)
+"""
 
-for server in fh_conexiones:
-  print("============> "+server);
+for conn in fh_conexiones:
+  print("============> "+conn);
   # [0] tipo de bdd, [1] nombre/IP, [2] usuario, [3] clave, [4] bdd. [5] puerto
-  lineaConn = file.split(",")
+  lineaConn = conn.split(",")
   tipoBdd = lineaConn[0]
   bdd = lineaConn[4]
-  archivosSql = next(walk(sentenciasdir+"/"+bdd), (None, None, []))[2]
+
+  dbConn=BaseDD(servidor=lineaConn[1], usuario=lineaConn[2], clave=lineaConn[3], db=lineaConn[4], puerto=lineaConn[5], drver='', motor='MariaDB')
+  print(sentenciasdir+"/"+tipoBdd)
+  archivosSql = next(walk(sentenciasdir+"/"+tipoBdd), (None, None, []))[2]
   for file in archivosSql:
     filespec = file.split(".")
     outfile=outdir+"/"+filespec[0]+".log"
-    fh_sentencias = open(sentenciasdir+"/"+file, "r")
-    sql=fh_sentencias.read() + "OUTPUT TO "+outfile
-    print(sql)
+    fh_sentencias = open(sentenciasdir+"/"+tipoBdd+"/"+file, "r")
+    #sql=fh_sentencias.read() + "INTO OUTFILE '"+outfile+"'"
+    sql=fh_sentencias.read()+";"
+    sql=sql.replace("#SPOOLFILE#", outfile)
     fh_sentencias.close()
+    #dbConn.ejecutar_query(sql)
+    sql="select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';"
+    print(sql)
+    dbConn.ejecutar_query("select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';")
 
 fh_conexiones.close()
 

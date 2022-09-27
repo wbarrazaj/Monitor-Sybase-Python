@@ -1,0 +1,4 @@
+MARIADB,Ares2,root,Emilita01,Prueba,3306
+SQLSERVER,servidorPandora,,,,
+MYSQL,servidorNicaragua,,,,
+MYSQL,servidorGuatemala,,,,
