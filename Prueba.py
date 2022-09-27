@@ -13,6 +13,7 @@ db='master'
 puerto=5000
 drver='SYBASE'
 
+
 Conn = BaseDD(servidor,usuario,clave,db,puerto,drver)
 
 
