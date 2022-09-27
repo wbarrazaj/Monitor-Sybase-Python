@@ -2,7 +2,7 @@
 import os
 import pyodbc
 
-from clases.Clase_Conexion import Conexion
+from clases.cls_Bdd import BaseDD
 
 os.environ["SQLANY_API_DLL"]='/opt/sqlanywhere17/lib64/libdbcapi_r.so'
 
@@ -13,7 +13,7 @@ db='master'
 puerto=5000
 drver='SYBASE'
 
-Conn = Conexion(servidor,usuario,clave,db,puerto,drver)
+Conn = BaseDD(servidor,usuario,clave,db,puerto,drver)
 
 
 print(Conn.ServidorDB)
