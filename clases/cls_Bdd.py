@@ -59,7 +59,7 @@ class BaseDD():
             cursor = conn.cursor()
             cursor.execute(query)
             resultado=cursor.fetchone()
-            print(resultado)
+            #print(resultado)
             conn.commit()
             conn.close()
             print("Ejecucion Mysql - MariaDB")
