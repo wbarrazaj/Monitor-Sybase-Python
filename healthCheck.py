@@ -66,10 +66,10 @@ for conn in fh_conexiones:
     sql=fh_sentencias.read()+";"
     sql=sql.replace("#SPOOLFILE#", outfile)
     fh_sentencias.close()
-    #dbConn.ejecutar_query(sql)
-    sql="select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';"
+    dbConn.ejecutar_query(sql)
+    #sql="select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';"
     print(sql)
-    dbConn.ejecutar_query("select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';")
+    #dbConn.ejecutar_query("select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';")
 
 fh_conexiones.close()
 

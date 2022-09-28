@@ -1,5 +1,7 @@
 import pyodbc 
 import pymysql
+import psycopg2
+
 
 
 class BaseDD():
@@ -34,7 +36,14 @@ class BaseDD():
                                     db=self.SchemaDBD
                                     ) 
 
-            print("MYSQL")
+        elif self.Motor=='Postgres':
+            conn = psycopg2.connect(
+                                    user=self.UsuarioDB,
+                                    password=self.PasswordDB,
+                                    host=self.ServidorDB,
+                                    port=self.Port,
+                                    database=self.SchemaDBD
+                                    )
         return conn
 
     def ejecutar_query(self, query):
@@ -47,15 +56,21 @@ class BaseDD():
             conn.close()
             print("Ejecucion Sybase")
         elif self.Motor in ('Mysql','MariaDB'):
-            print('Aqui 1')
             cursor = conn.cursor()
-            print('Aqui 2')
             cursor.execute(query)
             resultado=cursor.fetchone()
             print(resultado)
             conn.commit()
             conn.close()
             print("Ejecucion Mysql - MariaDB")
+        elif self.Motor == 'Postgres':
+            cursor = conn.cursor()
+            cursor.execute(query)
+            record = cursor.fetchone()
+            print("You are connected to - ", record, "\n")
+            print("Ejecucion Postgres")
+            conn.commit()
+            conn.close()
         else:
             print("Otra Motor")
 
