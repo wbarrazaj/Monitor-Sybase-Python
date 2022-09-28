@@ -48,7 +48,7 @@ class BaseDD():
 
     def ejecutar_query(self, query):
         conn=self.conectar()
-        print(self.Motor)
+        #print(self.Motor)
         if self.Motor == 'Sybase':
             cursor = conn.cursor()
             cursor.execute(query)
