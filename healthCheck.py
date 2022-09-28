@@ -5,7 +5,9 @@ from clases.cls_Bdd import BaseDD
 from os import walk
 from pathlib import Path
 import sys
-
+import os
+from datetime import datetime
+import shutil
 
 
 def error(texto):
@@ -26,9 +28,14 @@ if not path.is_file():
   error("Archivo de conexiones ("+archivoConexiones+") no existe")
 
 fh_conexiones=open(archivoConexiones)
+prefijo = datetime.timestamp(datetime.now())
+print(prefijo)
 
 
-outdir = "./salidas"
+outdir = "/tmp/healthcheck_"+ str(prefijo)
+print (outdir)
+os.mkdir(os.path.join("/tmp", "healthcheck_"+str(prefijo)))
+os.chmod(outdir,0o0777)
 sentenciasdir = "datos/sentencias/healthcheck"
 
 """
@@ -65,5 +72,8 @@ for conn in fh_conexiones:
     dbConn.ejecutar_query("select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';")
 
 fh_conexiones.close()
+
+shutil.move(outdir,"./salidas")
+
 
 
