@@ -1,1 +1,2 @@
 select 'bye',11,88,56
+INTO OUTFILE '#SPOOLFILE#'
