@@ -54,7 +54,6 @@ class BaseDD():
             cursor.execute(query)
             conn.commit()
             conn.close()
-            print("Ejecucion Sybase")
         elif self.Motor in ('Mysql','MariaDB'):
             cursor = conn.cursor()
             cursor.execute(query)
@@ -62,13 +61,11 @@ class BaseDD():
             #print(resultado)
             conn.commit()
             conn.close()
-            print("Ejecucion Mysql - MariaDB")
         elif self.Motor == 'Postgres':
             cursor = conn.cursor()
             cursor.execute(query)
             record = cursor.fetchone()
             print("You are connected to - ", record, "\n")
-            print("Ejecucion Postgres")
             conn.commit()
             conn.close()
         else:
