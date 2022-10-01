@@ -7,6 +7,7 @@ import sys
 import os
 from datetime import datetime
 import shutil
+import subprocess
 
 
 def error(texto):
@@ -27,25 +28,20 @@ if not path.is_file():
   error("Archivo de conexiones ("+archivoConexiones+") no existe")
 
 fh_conexiones=open(archivoConexiones)
-prefijo = datetime.timestamp(datetime.now())
+sufijo = datetime.timestamp(datetime.now())
+dirProceso = "healthcheck_"+ str(sufijo)
 
 
-outdir = "/tmp/healthcheck_"+ str(prefijo)
+outdir = "/tmp/"+ dirProceso
 print ("directorio de salida: "+outdir)
 
-os.mkdir(os.path.join("/tmp", "healthcheck_"+str(prefijo)))
+os.mkdir(os.path.join("/tmp", dirProceso))
 os.chmod(outdir,0o0777)
+os.mkdir(os.path.join("salidas", dirProceso))
 sentenciasdir = "datos/sentencias/healthcheck"
 
-"""
-#Limpia archivos de salida
-for file in archivosSql:
-  filespec = file.split(".")
-  outfile=outdir+"/"+filespec[0]+".log"
-  fh = open(outfile,"w")
-  fh.close()
-  print(outfile)
-"""
+#Crear archivo notAlive.log para los servicios que estén abajo
+fh_alive = open("./salidas/"+ dirProceso +"/notAlive.log","w")
 
 for conn in fh_conexiones:
   # [0] tipo de bdd, [1] nombre/IP, [2] usuario, [3] clave, [4] bdd. [5] puerto
@@ -64,15 +60,32 @@ for conn in fh_conexiones:
     fh_sentencias = open(sentenciasdir+"/"+tipoBdd+"/"+file, "r")
     #sql=fh_sentencias.read() + "INTO OUTFILE '"+outfile+"'"
     sql=fh_sentencias.read()+";"
+    sql=sql.replace("#SERVER#", lineaConn[1])
+    sql=sql.replace("#BD#", lineaConn[4])
     sql=sql.replace("#SPOOLFILE#", outfile)
     fh_sentencias.close()
     #print(sql)
+    #try:
     dbConn.ejecutar_query(sql)
-    #dbConn.ejecutar_query("select 'hola',1,2,100 INTO OUTFILE '"+outfile+"';")
+    #except Exception as e:
+      #errorTxt = ""+e.__class__.__name__
+      #if errorTxt.find("OperationalError") >= 0:
+        #if filespec[0]=="espacio":
+          #fh_alive.write(lineaConn[1]+","+lineaConn[4]+",0\n")
+    #else:
+      #print("Oops!", e.__class__, "occurred.")
+
+    cmd = "cat "+outfile+" >> salidas/"+dirProceso+"/"+filespec[0]+".log"
+    print(cmd)
+    subprocess.run(cmd, shell=True)
 
 fh_conexiones.close()
+fh_alive.close()
 
-shutil.move(outdir,"./salidas")
+try:
+  shutil.move(outdir + "/*","salidas/"+dirProceso)
+except Exception as e:
+  print(".")
 
 
 

@@ -1,2 +1,0 @@
-select 'chao',8,5,122
-INTO OUTFILE '#SPOOLFILE#'
