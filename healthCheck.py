@@ -59,33 +59,46 @@ for conn in fh_conexiones:
     outfile=outdir+"/"+filespec[0]+".log"
     fh_sentencias = open(sentenciasdir+"/"+tipoBdd+"/"+file, "r")
     #sql=fh_sentencias.read() + "INTO OUTFILE '"+outfile+"'"
-    sql=fh_sentencias.read()+";"
+    sql=fh_sentencias.read()
     sql=sql.replace("#SERVER#", lineaConn[1])
     sql=sql.replace("#BD#", lineaConn[4])
     sql=sql.replace("#SPOOLFILE#", outfile)
     fh_sentencias.close()
     #print(sql)
-    #try:
-    dbConn.ejecutar_query(sql)
-    #except Exception as e:
-      #errorTxt = ""+e.__class__.__name__
-      #if errorTxt.find("OperationalError") >= 0:
-        #if filespec[0]=="espacio":
-          #fh_alive.write(lineaConn[1]+","+lineaConn[4]+",0\n")
+    try:
+      dbConn.ejecutar_query(sql)
+      cmd = "cat "+outfile+" >> salidas/"+dirProceso+"/"+filespec[0]+".log"
+      #print(cmd)
+      subprocess.run(cmd, shell=True)
+      cmd = "rm -f "+outfile
+      subprocess.run(cmd, shell=True)
+    except Exception as e:
+      errorTxt = ""+e.__class__.__name__
+      #print("ERR:"+errorTxt)
+      if errorTxt.find("OperationalError") >= 0:
+        if filespec[0]=="espacio":
+          fh_alive.write(lineaConn[1]+","+lineaConn[4]+",0\n")
+        #else:
+          #print("Oops!", e.__class__, "occurred.")
+          #print( "** "+e.__class__.__name__)
+      else:
+        print("Oops!", e.__class__, "occurred.")
     #else:
-      #print("Oops!", e.__class__, "occurred.")
-
-    cmd = "cat "+outfile+" >> salidas/"+dirProceso+"/"+filespec[0]+".log"
-    print(cmd)
-    subprocess.run(cmd, shell=True)
 
 fh_conexiones.close()
 fh_alive.close()
 
-try:
-  shutil.move(outdir + "/*","salidas/"+dirProceso)
-except Exception as e:
-  print(".")
+#Generar los archivos CSV usando los logs generados
+cmd = "cat salidas/"+dirProceso+"/notAlive.log salidas/"+dirProceso+"/alive.log >> salidas/"+dirProceso+"/alive.csv"
+subprocess.run(cmd, shell=True)
+cmd = "mv salidas/"+dirProceso+"/espacio.log salidas/"+dirProceso+"/espacio.csv"
+#print(cmd);
+subprocess.run(cmd, shell=True)
+
+#try:
+  #shutil.move(outdir + "/*","salidas/"+dirProceso)
+#except Exception as e:
+  #print(".")
 
 
 

@@ -1,5 +1,6 @@
-MARIADB,Ares,root,Emilita01,Prueba,3306
+MARIADB,Ares2,root,Emilita01,Prueba,3306
 MARIADB,Apolo,root,Emilita01,mysql,3306
-SQLSERVER,servidorPandora,,,,
-MYSQL,servidorNicaragua,,,,
-MYSQL,servidorGuatemala,,,,
+SQLSERVER,Pantera,,,,
+MYSQL,Jupiter,,,,
+MARIADB,Ares2,root,Emilita01,Prueba,3306
+MYSQL,Urano,root,secreto01,mysql,3306
